@@ -5,10 +5,13 @@ import com.squareup.moshi.JsonClass
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.types.RealmList
 import io.realm.kotlin.types.RealmObject
+import io.realm.kotlin.types.annotations.PrimaryKey
 
 
 @JsonClass(generateAdapter = true)
-class Wizard : RealmObject {
+class Wizard() : RealmObject {
+    @Json(name = "id")
+    @PrimaryKey
     var id: String = ""
 
     @Json(name = "first_name")
