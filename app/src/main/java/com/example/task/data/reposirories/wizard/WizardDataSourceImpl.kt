@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.Credentials
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -36,13 +37,15 @@ class WizardDataSourceImpl @Inject constructor(
     }
 
     override suspend fun fetchWizards(): DefaultResponse<List<Wizard>> {
-       return try {
-           val result = apiEndPoints.getWizards()
-           result.body()?.let { saveWizards(it) }
-           DefaultResponse.create(apiEndPoints.getWizards())
-        } catch (e: Exception) {
-           DefaultResponse.create(e)
-        }
+       return withContext(Dispatchers.IO){
+           try {
+               val result = apiEndPoints.getWizards()
+               result.body()?.let { saveWizards(it) }
+               DefaultResponse.create(apiEndPoints.getWizards())
+           } catch (e: Exception) {
+               DefaultResponse.create(e)
+           }
+       }
     }
 
 
