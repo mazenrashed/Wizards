@@ -16,10 +16,8 @@ interface ApiEndPoints {
     @GET("Wizards")
     suspend fun getWizards(): Response<List<Wizard>>
 
-
-
     @GET("Elixirs/{id}")
-    suspend fun saveStaffRating(
+    suspend fun getElixirById(
         @Path("id") id: String,
     ): Response<Elixir>
 

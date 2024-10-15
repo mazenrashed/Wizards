@@ -1,6 +1,7 @@
-package com.example.task.data.remote
+package com.example.task.di
 
-import android.util.Log
+import com.example.task.data.remote.ApiEndPoints
+import com.example.task.data.remote.RealmListJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -21,7 +22,9 @@ object RemoteModule {
     @Singleton
     @Provides
     fun provideMoshi(): Moshi {
-        return Moshi.Builder().build()
+        return Moshi.Builder()
+            .add(RealmListJsonAdapterFactory())
+            .build()
     }
 
     @Singleton
